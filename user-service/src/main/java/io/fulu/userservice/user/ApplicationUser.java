@@ -28,7 +28,7 @@ public class ApplicationUser {
     @JoinColumn
     private UserStatus status;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Ban> banHistory;
 
     public long getId() {
