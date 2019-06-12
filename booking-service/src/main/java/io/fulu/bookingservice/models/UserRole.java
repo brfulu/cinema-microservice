@@ -1,17 +1,11 @@
 package io.fulu.bookingservice.models;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
 public class UserRole {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String description;
-
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private Set<ApplicationUser> users;
 
     public UserRole() {

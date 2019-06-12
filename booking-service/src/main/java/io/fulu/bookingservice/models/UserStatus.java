@@ -1,19 +1,13 @@
 package io.fulu.bookingservice.models;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
 public class UserStatus {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private int lowerBound;
     private int upperBound;
     private double discount;
-
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
     private Set<ApplicationUser> users;
 
     public UserStatus() {

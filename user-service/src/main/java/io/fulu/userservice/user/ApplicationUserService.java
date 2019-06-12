@@ -42,4 +42,16 @@ public class ApplicationUserService {
 
         return true;
     }
+
+    public List<ApplicationUser> getUsers() {
+        return applicationUserRepository.findAll();
+    }
+
+    public ApplicationUser getUser(long id) {
+        return applicationUserRepository.findById(id).orElse(null);
+    }
+
+    public void updateUser(ApplicationUser user) {
+        applicationUserRepository.save(user);
+    }
 }
