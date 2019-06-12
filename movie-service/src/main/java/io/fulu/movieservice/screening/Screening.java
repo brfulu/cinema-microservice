@@ -23,6 +23,7 @@ public class Screening {
     private Date start;
     private int bookingCount;
     private String status;
+    private double ticketPrice;
 
     public Screening() {}
 
@@ -72,5 +73,13 @@ public class Screening {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public double getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(double ticketPrice) {
+        this.ticketPrice = ticketPrice;
     }
 }

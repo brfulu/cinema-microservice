@@ -54,6 +54,8 @@ public class ScreeningController {
         screeningDto.setBookingCount(screening.getBookingCount());
         screeningDto.setMovieId(screening.getMovie().getId());
         screeningDto.setRoomId(screening.getRoom().getId());
+        screeningDto.setTicketPrice(screening.getTicketPrice());
+        screeningDto.setId(screening.getId());
         return screeningDto;
     }
 
@@ -64,6 +66,7 @@ public class ScreeningController {
         screening.setBookingCount(screeningDto.getBookingCount());
         screening.setMovie(movieService.getMovieById(screeningDto.getMovieId()));
         screening.setRoom(roomService.getRoomById(screeningDto.getRoomId()));
+        screening.setTicketPrice(screeningDto.getTicketPrice());
         return screening;
     }
 }

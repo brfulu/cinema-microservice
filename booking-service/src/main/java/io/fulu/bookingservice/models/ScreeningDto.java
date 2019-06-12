@@ -1,6 +1,7 @@
-package io.fulu.movieservice.screening;
+package io.fulu.bookingservice.models;
 
 import java.util.Date;
+
 
 public class ScreeningDto {
     private long id;
