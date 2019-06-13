@@ -26,7 +26,7 @@ public class ScreeningController {
     @RequestMapping(method = RequestMethod.GET)
     public List<ScreeningDto> getScreenings() {
         return screeningService.getScreenings().stream()
-                .map(entity -> entityToDto(entity))
+                .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -52,7 +52,9 @@ public class ScreeningController {
         screeningDto.setStart(screening.getStart());
         screeningDto.setStatus(screening.getStatus());
         screeningDto.setBookingCount(screening.getBookingCount());
+        screeningDto.setMovie(screening.getMovie());
         screeningDto.setMovieId(screening.getMovie().getId());
+        screeningDto.setRoom(screening.getRoom());
         screeningDto.setRoomId(screening.getRoom().getId());
         screeningDto.setTicketPrice(screening.getTicketPrice());
         screeningDto.setId(screening.getId());

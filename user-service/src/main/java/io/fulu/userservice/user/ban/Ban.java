@@ -1,6 +1,6 @@
 package io.fulu.userservice.user.ban;
 
-import io.fulu.userservice.user.ApplicationUser;
+import io.fulu.userservice.user.AppUser;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,24 +13,24 @@ public class Ban {
 
     @ManyToOne
     @JoinColumn
-    private ApplicationUser user;
+    private AppUser user;
 
     @ManyToOne
     @JoinColumn
-    private ApplicationUser admin;
+    private AppUser admin;
 
     private Date begins;
-    private Date expires;
+    private long duration;
 
     public Ban() {
 
     }
 
-    public Ban(ApplicationUser user, ApplicationUser admin, Date begins, Date expires) {
+    public Ban(AppUser user, AppUser admin, Date begins, long duration) {
         this.user = user;
         this.admin = admin;
         this.begins = begins;
-        this.expires = expires;
+        this.duration = duration;
     }
 
     public long getId() {
@@ -41,19 +41,19 @@ public class Ban {
         this.id = id;
     }
 
-    public ApplicationUser getUser() {
+    public AppUser getUser() {
         return user;
     }
 
-    public void setUser(ApplicationUser user) {
+    public void setUser(AppUser user) {
         this.user = user;
     }
 
-    public ApplicationUser getAdmin() {
+    public AppUser getAdmin() {
         return admin;
     }
 
-    public void setAdmin(ApplicationUser admin) {
+    public void setAdmin(AppUser admin) {
         this.admin = admin;
     }
 
@@ -65,11 +65,11 @@ public class Ban {
         this.begins = begins;
     }
 
-    public Date getExpires() {
-        return expires;
+    public long getDuration() {
+        return duration;
     }
 
-    public void setExpires(Date expires) {
-        this.expires = expires;
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 }

@@ -1,29 +1,23 @@
 package io.fulu.bookingservice.models;
 
-import java.util.List;
-
-public class ApplicationUser {
+public class AppUserDto {
     private long id;
     private String firstName;
     private String lastName;
-    private String email;
     private String username;
     private String password;
-    private int bookingCount;
-    private UserRole role;
+    private String email;
+    private String role;
     private UserStatus status;
-    private List<Ban> banHistory;
+    private int bookingCount;
+    private boolean isBanned;
 
     public long getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -32,6 +26,14 @@ public class ApplicationUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -50,19 +52,19 @@ public class ApplicationUser {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public UserRole getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -82,11 +84,12 @@ public class ApplicationUser {
         this.bookingCount = bookingCount;
     }
 
-    public List<Ban> getBanHistory() {
-        return banHistory;
+    public boolean isBanned() {
+        return isBanned;
     }
 
-    public void setBanHistory(List<Ban> banHistory) {
-        this.banHistory = banHistory;
+    public void setBanned(boolean banned) {
+        isBanned = banned;
     }
+
 }

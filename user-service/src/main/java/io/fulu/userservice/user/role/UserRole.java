@@ -1,6 +1,6 @@
 package io.fulu.userservice.user.role;
 
-import io.fulu.userservice.user.ApplicationUser;
+import io.fulu.userservice.user.AppUser;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,7 +14,7 @@ public class UserRole {
     private String description;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    private Set<ApplicationUser> users;
+    private Set<AppUser> users;
 
     public UserRole() {
 

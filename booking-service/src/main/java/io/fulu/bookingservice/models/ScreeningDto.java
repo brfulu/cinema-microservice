@@ -6,13 +6,31 @@ import java.util.Date;
 public class ScreeningDto {
     private long id;
     private long movieId;
+    private Movie movie;
     private long roomId;
+    private Room room;
     private Date start;
     private int bookingCount;
     private String status;
     private double ticketPrice;
 
     public ScreeningDto() {}
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 
     public long getId() {
         return id;

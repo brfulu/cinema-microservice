@@ -8,7 +8,6 @@ public class UserStatus {
     private int lowerBound;
     private int upperBound;
     private double discount;
-    private Set<ApplicationUser> users;
 
     public UserStatus() {
 

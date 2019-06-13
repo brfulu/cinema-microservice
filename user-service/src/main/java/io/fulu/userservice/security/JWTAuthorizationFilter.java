@@ -33,11 +33,31 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        System.out.println("Validacija");
+        String role = getUserRole(req);
+        if (role.equals("ADMIN")) {
+            if (req.getRequestURI().equals("/users") && req.getMethod().equals("GET")) {
+                System.out.println("evo usao sam ovde");
+                res.sendError(401);
+            }
+        }
+
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
+    }
+
+    private String getUserRole(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            String role = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getHeaderClaim("role").asString();
+
+            return role;
+        }
+        return null;
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {

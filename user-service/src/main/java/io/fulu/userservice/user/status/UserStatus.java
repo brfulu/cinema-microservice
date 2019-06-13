@@ -1,6 +1,6 @@
 package io.fulu.userservice.user.status;
 
-import io.fulu.userservice.user.ApplicationUser;
+import io.fulu.userservice.user.AppUser;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,7 +16,7 @@ public class UserStatus {
     private double discount;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
-    private Set<ApplicationUser> users;
+    private Set<AppUser> users;
 
     public UserStatus() {
 
