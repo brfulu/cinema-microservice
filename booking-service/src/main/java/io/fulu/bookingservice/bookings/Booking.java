@@ -12,9 +12,7 @@ public class Booking {
     private long screeningId;
     private long userId;
     private double totalPrice;
-
-    @ElementCollection
-    private List<Integer> seats;
+    private int seats;
 
     public long getId() {
         return id;
@@ -48,11 +46,11 @@ public class Booking {
         this.totalPrice = totalPrice;
     }
 
-    public List<Integer> getSeats() {
+    public int getSeats() {
         return seats;
     }
 
-    public void setSeats(List<Integer> seats) {
+    public void setSeats(int seats) {
         this.seats = seats;
     }
 }

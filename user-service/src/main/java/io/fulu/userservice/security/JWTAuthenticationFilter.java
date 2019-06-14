@@ -66,6 +66,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String role = userDetailsService.findByUsername(creds.getUsername()).getRole().getName();
         System.out.println(role);
 
+        res.addHeader("Access-Control-Expose-Headers", "Authorization");
+
         Map<String, Object> headerClaims = new HashMap();
         headerClaims.put("role", role);
         String token = JWT.create()

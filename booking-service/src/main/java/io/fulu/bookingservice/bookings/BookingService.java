@@ -37,16 +37,16 @@ public class BookingService {
 
             // izracunaj cenu sa popustom
             System.out.println(user.getStatus().getDiscount());
-            double totalPrice = booking.getSeats().size() * screeningDto.getTicketPrice();
+            double totalPrice = booking.getSeats() * screeningDto.getTicketPrice();
             booking.setTotalPrice(totalPrice - totalPrice * user.getStatus().getDiscount());
 
             // azuriraj projekciju
-            screeningDto.setBookingCount(screeningDto.getBookingCount() + booking.getSeats().size());
+            screeningDto.setBookingCount(screeningDto.getBookingCount() + booking.getSeats());
             HttpEntity<ScreeningDto> screeningRequest = new HttpEntity<>(screeningDto);
             restTemplate.put("http://localhost:8082/screenings/" + screeningDto.getId(), screeningRequest);
 
             // azuriraj korisnika
-            user.setBookingCount(user.getBookingCount() + booking.getSeats().size());
+            user.setBookingCount(user.getBookingCount() + booking.getSeats());
             HttpEntity<AppUserDto> userRequest = new HttpEntity<>(user);
             restTemplate.put("http://localhost:8083/users/" + user.getId(), userRequest);
 

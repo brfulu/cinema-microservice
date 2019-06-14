@@ -38,7 +38,11 @@ public class AppUserService {
     public AppUser signUp(AppUser user) {
         List<Ban> banHistory = new ArrayList<>();
 
-        UserStatus status = userStatusService.getStatus(1);
+        List<UserStatus> statusList = userStatusService.getStatus();
+        UserStatus status = null;
+        if (statusList.size() == 0) {
+            status = userStatusService.saveStatus(new UserStatus("Regular", 0, 5, 0.1));
+        }
 
         UserRole role = new UserRole("USER", "ovo je user");
         List<String> adminUsernames = Arrays.asList("fulu", "branko");

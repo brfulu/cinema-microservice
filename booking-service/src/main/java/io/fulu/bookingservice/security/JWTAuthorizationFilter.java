@@ -1,4 +1,4 @@
-package io.fulu.userservice.security;
+package io.fulu.bookingservice.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -13,10 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import static io.fulu.userservice.security.SecurityConstants.*;
+import static io.fulu.bookingservice.security.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -28,6 +26,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
+
         String header = req.getHeader(HEADER_STRING);
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
@@ -35,22 +34,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        res.addHeader("Access-Control-Expose-Headers", "Authorization");
-        res.addHeader("Access-Control-Allow-Headers", "Authorization");
-
         String role = getUserRole(req);
-        String user = getUser(req.getHeader(HEADER_STRING));
-
-        req.setAttribute("role", role);
-        req.setAttribute("user", user);
-        System.out.println("evo me");
-        System.out.println(role);
         if (role.equals("USER")) {
-            List<String> allowedMethods = Arrays.asList("GET", "PUT");
-            if (req.getRequestURI().equals("/users") && allowedMethods.indexOf(req.getMethod()) > -1) {
-                System.out.println("evo usao sam ovde");
-            } else {
-//                res.sendError(401);
+            if (!req.getRequestURI().equals("/screenings") || !req.getMethod().equals("GET")) {
+                res.sendError(401);
             }
         }
 
@@ -77,7 +64,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
-            String user = getUser(token);
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
 
             if (user != null) {
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
@@ -85,12 +75,5 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return null;
         }
         return null;
-    }
-
-    private String getUser(String token) {
-        return JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                .build()
-                .verify(token.replace(TOKEN_PREFIX, ""))
-                .getSubject();
     }
 }

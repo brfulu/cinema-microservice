@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Movies</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style type="text/css">
         body {
             color: #566787;
@@ -18,7 +17,7 @@
         .table-wrapper {
             background: #fff;
             padding: 20px 25px;
-            margin: 50px 0;
+            margin: 20px 0;
             border-radius: 3px;
             box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
             font-size: 13px;
@@ -69,10 +68,6 @@
             border-color: #e9e9e9;
             padding: 12px 15px;
             vertical-align: middle;
-        }
-
-        table.table tr th:first-child {
-            width: 60px;
         }
 
         table.table tr th:last-child {
@@ -278,7 +273,6 @@
 </head>
 <body>
 
-
 <div class="container">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -289,189 +283,94 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="index.html">Home</a>
-                    <a class="nav-item nav-link active" href="movie.html">Movie</a>
-                    <a class="nav-item nav-link" href="screening.html">Screening</a>
+                    <a class="nav-item nav-link active" href="#">Movies</a>
+                    <a class="nav-item nav-link" href="screenings.html">Screenings</a>
+                    <a class="nav-item nav-link" href="users.html">Users</a>
+                    <a class="nav-item nav-link float-right" href="../profile.html">Profile</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-item nav-link float-right" href="#" onclick="signOut()">Sign out</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main>
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2>Manage <b>Movies</b></h2>
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
-                                class="material-icons">&#xE147;</i> <span>Add New</span></a>
-                        <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i
-                                class="material-icons">&#xE15C;</i> <span>Delete</span></a>
-                    </div>
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Manage <b>Movies</b></h2>
+                </div>
+                <div class="col-sm-6">
+                    <a href="#addMovieModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i>
+                        <span>Add Movie</span></a>
                 </div>
             </div>
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-                    </th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-                    </td>
-                    <td>Thomas Hardy</td>
-                    <td>thomashardy@mail.com</td>
-                    <td>89 Chiaroscuro Rd, Portland, USA</td>
-                    <td>(171) 555-2222</td>
-                    <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                                                                                         data-toggle="tooltip"
-                                                                                         title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                                                                                             data-toggle="tooltip"
-                                                                                             title="Delete">&#xE872;</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-                    </td>
-                    <td>Dominique Perrier</td>
-                    <td>dominiqueperrier@mail.com</td>
-                    <td>Obere Str. 57, Berlin, Germany</td>
-                    <td>(313) 555-5735</td>
-                    <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                                                                                         data-toggle="tooltip"
-                                                                                         title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                                                                                             data-toggle="tooltip"
-                                                                                             title="Delete">&#xE872;</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
-                    </td>
-                    <td>Maria Anders</td>
-                    <td>mariaanders@mail.com</td>
-                    <td>25, rue Lauriston, Paris, France</td>
-                    <td>(503) 555-9931</td>
-                    <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                                                                                         data-toggle="tooltip"
-                                                                                         title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                                                                                             data-toggle="tooltip"
-                                                                                             title="Delete">&#xE872;</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
-                    </td>
-                    <td>Fran Wilson</td>
-                    <td>franwilson@mail.com</td>
-                    <td>C/ Araquil, 67, Madrid, Spain</td>
-                    <td>(204) 619-5731</td>
-                    <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                                                                                         data-toggle="tooltip"
-                                                                                         title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                                                                                             data-toggle="tooltip"
-                                                                                             title="Delete">&#xE872;</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
-                    </td>
-                    <td>Martin Blank</td>
-                    <td>martinblank@mail.com</td>
-                    <td>Via Monte Bianco 34, Turin, Italy</td>
-                    <td>(480) 631-2097</td>
-                    <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                                                                                         data-toggle="tooltip"
-                                                                                         title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                                                                                             data-toggle="tooltip"
-                                                                                             title="Delete">&#xE872;</i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="clearfix">
-                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Previous</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                </ul>
-            </div>
         </div>
-    </main>
+        <table id="moviesTable" class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Genre</th>
+                <th>Description</th>
+                <th>Actors</th>
+                <th>Duration</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="clearfix">
+            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+            <ul class="pagination">
+                <li class="page-item disabled"><a href="#">Previous</a></li>
+                <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <!-- Add Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+<div id="addMovieModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form id="addForm">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Employee</h4>
+                    <h4 class="modal-title">Add Movie</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" required>
+                        <input id="name" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" required>
+                        <label>Genre</label>
+                        <select class="form-control" id="genre">
+                            <option selected disabled>Select genre</option>
+                            <option>Sci-Fi</option>
+                            <option>Thriller</option>
+                            <option>Comedy</option>
+                            <option>Action</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" required></textarea>
+                        <label>Description</label>
+                        <textarea id="description" class="form-control" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" required>
+                        <label>Actors</label>
+                        <input id="actors" type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <input id="duration" type="number" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -483,32 +382,45 @@
     </div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
+<div id="editMovieModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form id="editForm">
+                <input id="editMovieId" type="text" hidden>
+
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Employee</h4>
+                    <h4 class="modal-title">Edit Movie</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" required>
+                        <input id="eName" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" required>
+                        <label>Genre</label>
+                        <select class="form-control" id="eGenre">
+                            <option selected disabled>Select genre</option>
+                            <option>Sci-Fi</option>
+                            <option>Thriller</option>
+                            <option>Comedy</option>
+                            <option>Action</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" required></textarea>
+                        <label>Description</label>
+                        <textarea id="eDescription" class="form-control" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" required>
+                        <label>Actors</label>
+                        <input id="eActors" type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <input id="eDuration" type="number" class="form-control" required>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                     <input type="submit" class="btn btn-info" value="Save">
@@ -518,10 +430,12 @@
     </div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deleteMovieModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form id="deleteForm">
+                <input id="deleteMovieId" type="text" hidden>
+
                 <div class="modal-header">
                     <h4 class="modal-title">Delete Employee</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -541,8 +455,9 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -552,6 +467,58 @@
         crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+    let allMovies = [];
+
+    function getMovies() {
+        $.get('http://localhost:8082/movies', function (movies) {
+            allMovies = movies;
+            console.log(movies);
+            let content = '';
+            for (let i = 0; i < movies.length; i++) {
+                console.log(movies[i]);
+                content += '<tr id="' + movies[i].id + '">';
+                content += '<td>' + movies[i].name + '</td>';
+                content += '<td>' + movies[i].genre + '</td>';
+                content += '<td>' + movies[i].description + '</td>';
+                content += '<td>' + movies[i].actors + '</td>';
+                content += '<td>' + movies[i].duration + '</td>';
+                content += '<td>' +
+                    '<a id="' + movies[i].id + '" href="#editMovieModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>' +
+                    '<a id="' + movies[i].id + '" href="#deleteMovieModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>' +
+                    '</td>'
+                // '<td>' +
+                //  '<a id="' + movies[i].id + '" href="#banUserModal" class="ban delete" data-toggle="modal">' +
+                // '<i class="material-icons" data-toggle="tooltip" title="Ban">block</i>' +
+                // '</a>' +
+                // '</td>';
+                content += '</tr>';
+            }
+            $('#moviesTable tbody').html(content);
+            $('.delete').on('click', function () {
+                $('#deleteMovieId').val(this.id);
+            });
+            $('.edit').on('click', function () {
+                $('#editMovieId').val(this.id);
+                for (let i = 0; i < allMovies.length; i++) {
+                    let movie = allMovies[i];
+                    if (movie.id == this.id) {
+                        $('#eName').val(movie.name);
+                        $('#eGenre').val(movie.genre);
+                        $('#eDescription').val(movie.description);
+                        $('#eActors').val(movie.actors);
+                        $('#eDuration').val(movie.duration);
+                        break;
+                    }
+                }
+            });
+        });
+    }
+
+    function signOut() {
+        window.localStorage.removeItem("token");
+        window.location.href = "../login.html";
+    }
+
     $(document).ready(function () {
         // Activate tooltip
         $('[data-toggle="tooltip"]').tooltip();
@@ -574,7 +541,83 @@
                 $("#selectAll").prop("checked", false);
             }
         });
+
+        $("#deleteForm").submit(function (e) {
+            e.preventDefault();
+            const id = $('#deleteMovieId').val();
+            console.log(id);
+            $.ajax({
+                type: "DELETE",
+                url: 'http://localhost:8082/movies/' + id,
+                success: function (data) {
+                    getMovies();
+                    $('#deleteMovieModal').modal('toggle');
+                }
+            });
+        });
+
+        $("#addForm").submit(function (e) {
+            e.preventDefault();
+            const name = $('#name').val();
+            const genre = $('#genre').val();
+            const description = $('#description').val();
+            const actors = $('#actors').val();
+            const duration = parseInt($('#duration').val());
+            const body = {
+                name,
+                genre,
+                description,
+                actors,
+                duration
+            }
+            console.log(body);
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost:8082/movies',
+                data: JSON.stringify(body),
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                success: function (data) {
+                    getMovies();
+                    $('#addMovieModal').modal('toggle');
+                }
+            });
+        });
+
+        $("#editForm").submit(function (e) {
+            e.preventDefault();
+            const id = $('#editMovieId').val();
+            const name = $('#eName').val();
+            const genre = $('#eGenre').val();
+            const description = $('#eDescription').val();
+            const actors = $('#eActors').val();
+            const duration = parseInt($('#eDuration').val());
+            const body = {
+                name,
+                genre,
+                description,
+                actors,
+                duration
+            }
+            console.log(body);
+            $.ajax({
+                type: "PUT",
+                url: 'http://localhost:8082/movies/' + id,
+                data: JSON.stringify(body),
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                success: function (data) {
+                    getMovies();
+                    $('#editMovieModal').modal('toggle');
+                }
+            });
+        });
+
+        getMovies();
     });
 </script>
+
 </body>
 </html>
