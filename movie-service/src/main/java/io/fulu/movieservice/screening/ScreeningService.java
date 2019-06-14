@@ -4,6 +4,8 @@ import io.fulu.movieservice.movie.MovieRepository;
 import io.fulu.movieservice.room.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +23,8 @@ public class ScreeningService {
         screeningRepository.save(screening);
     }
 
-    public List<Screening> getScreenings() {
-        return screeningRepository.findAll();
+    public Page<Screening> getScreenings(Pageable pageable) {
+        return screeningRepository.findAll(pageable);
     }
 
     public Screening getScreeningById(long id) {

@@ -3,9 +3,13 @@ package io.fulu.movieservice.screening;
 import io.fulu.movieservice.movie.MovieService;
 import io.fulu.movieservice.room.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,8 +28,16 @@ public class ScreeningController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<ScreeningDto> getScreenings() {
-        return screeningService.getScreenings().stream()
+    public List<ScreeningDto> getScreenings(@RequestParam("page") Optional<Integer> page,
+                                            @RequestParam("size") Optional<Integer> size,
+                                            @RequestParam("sortBy") Optional<String> sortBy,
+                                            @RequestParam("search") Optional<String> search) {
+
+        String sortField = sortBy.orElse("+ticketPrice").substring(1);
+        Sort sort = sortBy.orElse("+ticketPrice").charAt(0) == '+' ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(page.orElse(0), size.orElse(1000), sort);
+
+        return screeningService.getScreenings(pageable).stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }

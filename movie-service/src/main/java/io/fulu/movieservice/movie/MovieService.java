@@ -2,6 +2,8 @@ package io.fulu.movieservice.movie;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
-    public List<Movie> getMovies() {
-        return movieRepository.findAll();
+    public Page<Movie> getMovies(Pageable pageable) {
+        return movieRepository.findAll(pageable);
     }
 
     public Movie getMovieById(long id) {

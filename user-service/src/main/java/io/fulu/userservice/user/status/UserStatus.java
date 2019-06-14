@@ -29,6 +29,10 @@ public class UserStatus {
         this.discount = discount;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

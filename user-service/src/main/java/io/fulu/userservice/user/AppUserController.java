@@ -3,9 +3,17 @@ package io.fulu.userservice.user;
 import io.fulu.userservice.user.ban.Ban;
 import io.fulu.userservice.user.ban.BanDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,8 +29,15 @@ public class AppUserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<AppUserDto> getUsers() {
-        return appUserService.getUsers().stream()
+    public List<AppUserDto> getUsers(@RequestParam("page") Optional<Integer> page,
+                                     @RequestParam("size") Optional<Integer> size,
+                                     @RequestParam("sortBy") Optional<String> sortBy,
+                                     @RequestParam("search") Optional<String> search) {
+        String sortField = sortBy.orElse("+username").substring(1);
+        Sort sort = sortBy.orElse("+username").charAt(0) == '+' ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(page.orElse(0), size.orElse(1000), sort);
+
+        return appUserService.getUsers(pageable).stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
@@ -33,10 +48,19 @@ public class AppUserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public AppUserDto updateUser(@PathVariable long id, @RequestBody AppUserDto userDto) {
+    public ResponseEntity<AppUserDto> updateUser(@PathVariable long id, @RequestBody AppUserDto userDto) {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (appUserService.isBanned(username)) {
+            return ResponseEntity.status(401).body(null);
+        }
+        AppUser user = appUserService.findByUsername(username);
+        if (user == null || user.getId() != id) {
+            return ResponseEntity.status(401).body(null);
+        }
+
         userDto.setId(id);
-        AppUser user = appUserService.updateUser(dtoToEntity(userDto));
-        return entityToDto(user);
+        user = appUserService.updateUser(dtoToEntity(userDto));
+        return ResponseEntity.accepted().body(entityToDto(user));
     }
 
     @RequestMapping(value = "/{id}/ban", method = RequestMethod.POST)
@@ -76,4 +100,5 @@ public class AppUserController {
         userDto.setBookingCount(user.getBookingCount());
         return userDto;
     }
+
 }

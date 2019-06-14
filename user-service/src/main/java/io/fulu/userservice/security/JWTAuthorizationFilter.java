@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static io.fulu.userservice.security.SecurityConstants.*;
 
@@ -34,10 +36,18 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         String role = getUserRole(req);
-        if (role.equals("ADMIN")) {
-            if (req.getRequestURI().equals("/users") && req.getMethod().equals("GET")) {
+        String user = getUser(req.getHeader(HEADER_STRING));
+
+        req.setAttribute("role", role);
+        req.setAttribute("user", user);
+        System.out.println("evo me");
+        System.out.println(role);
+        if (role.equals("USER")) {
+            List<String> allowedMethods = Arrays.asList("GET", "PUT");
+            if (req.getRequestURI().equals("/users") && allowedMethods.indexOf(req.getMethod()) > -1) {
                 System.out.println("evo usao sam ovde");
-                res.sendError(401);
+            } else {
+//                res.sendError(401);
             }
         }
 
@@ -64,10 +74,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
+            String user = getUser(token);
 
             if (user != null) {
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
@@ -75,5 +82,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return null;
         }
         return null;
+    }
+
+    private String getUser(String token) {
+        return JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                .build()
+                .verify(token.replace(TOKEN_PREFIX, ""))
+                .getSubject();
     }
 }
