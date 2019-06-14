@@ -366,13 +366,21 @@
     var user = null;
 
     function getUserData() {
-        $.get('http://localhost:8083/users?username=' + tokenUser.sub, function (users) {
-            user = users[0];
-            $('#username').val(user.username);
-            $('#firstName').val(user.firstName);
-            $('#lastName').val(user.lastName);
-            $('#email').val(user.email);
-            $('#password').val('placeholder');
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/users?username=' + tokenUser.sub,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            success: function (users) {
+                user = users[0];
+                $('#username').val(user.username);
+                $('#firstName').val(user.firstName);
+                $('#lastName').val(user.lastName);
+                $('#email').val(user.email);
+                $('#password').val('placeholder');
+            }
         });
     }
 
@@ -410,8 +418,8 @@
                 password
             }
             $.ajax({
-                type: "POST",
-                url: 'http://localhost:8083/users/' + user.id,
+                type: "PUT",
+                url: 'http://localhost:8080/users/' + user.id,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token

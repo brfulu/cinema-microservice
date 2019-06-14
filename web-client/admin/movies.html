@@ -468,50 +468,101 @@
 
 <script type="text/javascript">
     let allMovies = [];
+    const accessToken = window.localStorage.getItem("token");
 
     function getMovies() {
-        $.get('http://localhost:8082/movies', function (movies) {
-            allMovies = movies;
-            console.log(movies);
-            let content = '';
-            for (let i = 0; i < movies.length; i++) {
-                console.log(movies[i]);
-                content += '<tr id="' + movies[i].id + '">';
-                content += '<td>' + movies[i].name + '</td>';
-                content += '<td>' + movies[i].genre + '</td>';
-                content += '<td>' + movies[i].description + '</td>';
-                content += '<td>' + movies[i].actors + '</td>';
-                content += '<td>' + movies[i].duration + '</td>';
-                content += '<td>' +
-                    '<a id="' + movies[i].id + '" href="#editMovieModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>' +
-                    '<a id="' + movies[i].id + '" href="#deleteMovieModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>' +
-                    '</td>'
-                // '<td>' +
-                //  '<a id="' + movies[i].id + '" href="#banUserModal" class="ban delete" data-toggle="modal">' +
-                // '<i class="material-icons" data-toggle="tooltip" title="Ban">block</i>' +
-                // '</a>' +
-                // '</td>';
-                content += '</tr>';
-            }
-            $('#moviesTable tbody').html(content);
-            $('.delete').on('click', function () {
-                $('#deleteMovieId').val(this.id);
-            });
-            $('.edit').on('click', function () {
-                $('#editMovieId').val(this.id);
-                for (let i = 0; i < allMovies.length; i++) {
-                    let movie = allMovies[i];
-                    if (movie.id == this.id) {
-                        $('#eName').val(movie.name);
-                        $('#eGenre').val(movie.genre);
-                        $('#eDescription').val(movie.description);
-                        $('#eActors').val(movie.actors);
-                        $('#eDuration').val(movie.duration);
-                        break;
-                    }
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/movies',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            },
+            success: function (movies) {
+                allMovies = movies;
+                console.log(movies);
+                let content = '';
+                for (let i = 0; i < movies.length; i++) {
+                    console.log(movies[i]);
+                    content += '<tr id="' + movies[i].id + '">';
+                    content += '<td>' + movies[i].name + '</td>';
+                    content += '<td>' + movies[i].genre + '</td>';
+                    content += '<td>' + movies[i].description + '</td>';
+                    content += '<td>' + movies[i].actors + '</td>';
+                    content += '<td>' + movies[i].duration + '</td>';
+                    content += '<td>' +
+                        '<a id="' + movies[i].id + '" href="#editMovieModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>' +
+                        '<a id="' + movies[i].id + '" href="#deleteMovieModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>' +
+                        '</td>'
+                    // '<td>' +
+                    //  '<a id="' + movies[i].id + '" href="#banUserModal" class="ban delete" data-toggle="modal">' +
+                    // '<i class="material-icons" data-toggle="tooltip" title="Ban">block</i>' +
+                    // '</a>' +
+                    // '</td>';
+                    content += '</tr>';
                 }
-            });
+                $('#moviesTable tbody').html(content);
+                $('.delete').on('click', function () {
+                    $('#deleteMovieId').val(this.id);
+                });
+                $('.edit').on('click', function () {
+                    $('#editMovieId').val(this.id);
+                    for (let i = 0; i < allMovies.length; i++) {
+                        let movie = allMovies[i];
+                        if (movie.id == this.id) {
+                            $('#eName').val(movie.name);
+                            $('#eGenre').val(movie.genre);
+                            $('#eDescription').val(movie.description);
+                            $('#eActors').val(movie.actors);
+                            $('#eDuration').val(movie.duration);
+                            break;
+                        }
+                    }
+                });
+            }
         });
+        // $.get('http://localhost:8080/movies', function (movies) {
+        //     allMovies = movies;
+        //     console.log(movies);
+        //     let content = '';
+        //     for (let i = 0; i < movies.length; i++) {
+        //         console.log(movies[i]);
+        //         content += '<tr id="' + movies[i].id + '">';
+        //         content += '<td>' + movies[i].name + '</td>';
+        //         content += '<td>' + movies[i].genre + '</td>';
+        //         content += '<td>' + movies[i].description + '</td>';
+        //         content += '<td>' + movies[i].actors + '</td>';
+        //         content += '<td>' + movies[i].duration + '</td>';
+        //         content += '<td>' +
+        //             '<a id="' + movies[i].id + '" href="#editMovieModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>' +
+        //             '<a id="' + movies[i].id + '" href="#deleteMovieModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>' +
+        //             '</td>'
+        //         // '<td>' +
+        //         //  '<a id="' + movies[i].id + '" href="#banUserModal" class="ban delete" data-toggle="modal">' +
+        //         // '<i class="material-icons" data-toggle="tooltip" title="Ban">block</i>' +
+        //         // '</a>' +
+        //         // '</td>';
+        //         content += '</tr>';
+        //     }
+        //     $('#moviesTable tbody').html(content);
+        //     $('.delete').on('click', function () {
+        //         $('#deleteMovieId').val(this.id);
+        //     });
+        //     $('.edit').on('click', function () {
+        //         $('#editMovieId').val(this.id);
+        //         for (let i = 0; i < allMovies.length; i++) {
+        //             let movie = allMovies[i];
+        //             if (movie.id == this.id) {
+        //                 $('#eName').val(movie.name);
+        //                 $('#eGenre').val(movie.genre);
+        //                 $('#eDescription').val(movie.description);
+        //                 $('#eActors').val(movie.actors);
+        //                 $('#eDuration').val(movie.duration);
+        //                 break;
+        //             }
+        //         }
+        //     });
+        // });
     }
 
     function signOut() {
@@ -548,7 +599,7 @@
             console.log(id);
             $.ajax({
                 type: "DELETE",
-                url: 'http://localhost:8082/movies/' + id,
+                url: 'http://localhost:8080/movies/' + id,
                 success: function (data) {
                     getMovies();
                     $('#deleteMovieModal').modal('toggle');
@@ -573,7 +624,7 @@
             console.log(body);
             $.ajax({
                 type: "POST",
-                url: 'http://localhost:8082/movies',
+                url: 'http://localhost:8080/movies',
                 data: JSON.stringify(body),
                 headers: {
                     'Content-type': 'application/json'
@@ -603,7 +654,7 @@
             console.log(body);
             $.ajax({
                 type: "PUT",
-                url: 'http://localhost:8082/movies/' + id,
+                url: 'http://localhost:8080/movies/' + id,
                 data: JSON.stringify(body),
                 headers: {
                     'Content-type': 'application/json'

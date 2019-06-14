@@ -42,6 +42,8 @@ public class AppUserService {
         UserStatus status = null;
         if (statusList.size() == 0) {
             status = userStatusService.saveStatus(new UserStatus("Regular", 0, 5, 0.1));
+        } else {
+            status = userStatusService.getStatus(1);
         }
 
         UserRole role = new UserRole("USER", "ovo je user");

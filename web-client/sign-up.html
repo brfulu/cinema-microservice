@@ -383,13 +383,13 @@
             }
             $.ajax({
                 type: "POST",
-                url: 'http://localhost:8083/users/sign-up',
+                url: 'http://localhost:8080/sign-up',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 data: JSON.stringify(body),
                 success: function (data, status, request) {
-                    alert('success');
+                    alert('preko api-gateway');
                     window.location.href = 'login.html';
                 }
             });

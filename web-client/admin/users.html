@@ -401,32 +401,43 @@
         crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+    const accessToken = window.localStorage.getItem("token");
+
     function getUsers() {
-        $.get('http://localhost:8083/users', function (users) {
-            let content = '';
-            for (let i = 0; i < users.length; i++) {
-                console.log(users[i]);
-                if (users[i].role == "ADMIN") continue;
-                content += '<tr id="' + users[i].id + '">';
-                content += '<td>' + users[i].firstName + '</td>';
-                content += '<td>' + users[i].lastName + '</td>';
-                content += '<td>' + users[i].username + '</td>';
-                content += '<td>' + users[i].email + '</td>';
-                content += '<td>' + users[i].status.name + '</td>';
-                content += '<td>' + users[i].bookingCount + '</td>';
-                content += '<td>' + users[i].banned + '</td>';
-                content += '<td>' +
-                    '<a id="' + users[i].id + '" href="#banUserModal" class="ban delete" data-toggle="modal">' +
-                    '<i class="material-icons" data-toggle="tooltip" title="Ban">block</i>' +
-                    '</a>' +
-                    '</td>';
-                content += '</tr>';
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/users',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            },
+            success: function (users) {
+                console.log('evo me');
+                let content = '';
+                for (let i = 0; i < users.length; i++) {
+                    console.log(users[i]);
+                    if (users[i].role == "ADMIN") continue;
+                    content += '<tr id="' + users[i].id + '">';
+                    content += '<td>' + users[i].firstName + '</td>';
+                    content += '<td>' + users[i].lastName + '</td>';
+                    content += '<td>' + users[i].username + '</td>';
+                    content += '<td>' + users[i].email + '</td>';
+                    content += '<td>' + users[i].status.name + '</td>';
+                    content += '<td>' + users[i].bookingCount + '</td>';
+                    content += '<td>' + users[i].banned + '</td>';
+                    content += '<td>' +
+                        '<a id="' + users[i].id + '" href="#banUserModal" class="ban delete" data-toggle="modal">' +
+                        '<i class="material-icons" data-toggle="tooltip" title="Ban">block</i>' +
+                        '</a>' +
+                        '</td>';
+                    content += '</tr>';
+                }
+                $('#usersTable tbody').html(content);
+                $('.ban').on('click', function () {
+                    console.log(this.id);
+                    $('#userId').val(this.id);
+                });
             }
-            $('#usersTable tbody').html(content);
-            $('.ban').on('click', function () {
-                console.log(this.id);
-                $('#userId').val(this.id);
-            });
         });
     }
 
@@ -472,7 +483,8 @@
                 type: "POST",
                 url: 'http://localhost:8083/users/' + id + '/ban',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + accessToken
                 },
                 data: JSON.stringify(body),
                 success: function (data) {
